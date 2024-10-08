@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Plazo Fijo</title>
+    <!-- Vincular Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="styles.css"> <!-- Vincula el archivo CSS -->
+</head>
+<body class="container mt-5">
+
+    <h1 class="text-center">Simulador de Plazo Fijo</h1>
+
+    <form id="simuladorForm" class="mb-4">
+        <div class="form-group">
+            <label for="cinvertir">Capital a invertir ($):</label>
+            <input type="text" class="form-control" id="cinvertir" placeholder="Ingresa el capital" required>
+        </div>
+
+        <div class="form-group">
+            <label for="pdias">Días de inversion:</label>
+            <input type="text" class="form-control" id="pdias" placeholder="Ingresa el plazo en días" required>
+        </div>
+
+        <button type="button" class="btn btn-primary" onclick="calcularInteres()">Calcular Interés</button>
+        <button type="button" class="btn btn-secondary" onclick="limpiarCampos()">Limpiar</button>
+    </form>
+
+    <!-- Tabla para mostrar los resultados -->
+    <table id="resultados" class="table table-striped">
+        <thead>
+            <tr>
+                <th>Capital</th>
+                <th>Díass</th>
+                <th>Interes Generado</th>
+                <th>Moto Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Aquí se insertarán los resultados -->
+        </tbody>
+    </table>
+
+    <script src="pfscript.js"></script> <!-- Vincula el archivo JavaScript -->
+    <!-- Vincular Bootstrap JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

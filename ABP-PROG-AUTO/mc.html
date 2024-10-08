@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criptomonedas</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Precios de Criptomonedas</h1>
+        <div id="crypto-info" class="mt-4"></div>
+    </div>
+
+    <script>
+        const apiUrl = 'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,tether,Solana&vs_currencies=usd,ars&include_market_cap=true&include_24hr_change=true';
+
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                const cryptoInfo = document.getElementById('crypto-info');
+                cryptoInfo.innerHTML = '';
+
+                // Obtener íconos de las criptomonedas
+                const iconUrlApi = 'https://api.coingecko.com/api/v3/coins/';
+
+                for (const [key, value] of Object.entries(data)) {
+                    const name = key.charAt(0).toUpperCase() + key.slice(1);
+                    
+                    // Formatear precios
+                    const usdPrice = value.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                    const arsPrice = value.ars.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' });
+
+                    // Obtener icono de la criptomoneda
+                    fetch(iconUrlApi + key)
+                        .then(iconResponse => iconResponse.json())
+                        .then(iconData => {
+                            const iconUrl = iconData.image.small; // URL del ícono
+
+                            const cryptoElement = document.createElement('div');
+                            cryptoElement.className = 'card mb-3'; // Clase de Bootstrap para tarjeta
+                            cryptoElement.innerHTML = `
+                                <div class="card-body">
+                                    <h5 class="card-title">${name} <img src="${iconUrl}" alt="${name} icon" width="20" height="20"></h5>
+                                    <p class="card-text">Precio: ${usdPrice} - ${arsPrice}</p>
+                                </div>`;
+                            cryptoInfo.appendChild(cryptoElement);
+                        })
+                        .catch(iconError => {
+                            console.error('Error al obtener el ícono:', iconError);
+                        });
+                }
+            })
+            .catch(error => {
+                console.error('Error al obtener datos:', error);
+            });
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
